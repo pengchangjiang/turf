@@ -1,5 +1,5 @@
 var map, createType = 1;//0,1,2:point,line,polygon
-var pointArr = [], layerGroup;
+var pointArr = [], layerGroup, polygonG, polylineG;
 function init() {
     map = L.map('map', { center: [36.77, 111.13], zoom: 4, doubleClickZoom: false });
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -14,6 +14,7 @@ init();
  */
 function clearTest() {
     layerGroup.clearLayers();
+    createType = -1;
     pointArr = [];
 }
 /**
@@ -59,10 +60,12 @@ function initMapEvent() {
         var geoLayer = null;
         switch (createType) {
             case 1:
-                geoLayer = L.polyline(latlngs, { color: '#674' });
+                polylineG = L.polyline(latlngs, { color: '#674' });
+                geoLayer = polylineG;
                 break;
             case 2:
-                geoLayer = L.polygon(latlngs, { color: '#674' });
+                polygonG = L.polygon(latlngs, { color: '#674' });
+                geoLayer = polygonG;
                 break;
         }
         layerGroup.addLayer(geoLayer);
@@ -77,4 +80,15 @@ function alongTest() {
     var along = turf.along(line, 200, 'miles');
     var alongMarker = L.marker(along.geometry.coordinates.reverse());
     layerGroup.addLayer(alongMarker);
+}
+
+/**
+ * 计算面积
+ */
+function area() {
+    pointArr.push(pointArr[0]);
+    var polygon = turf.polygon([pointArr]);//必须闭合，首尾结合
+    var area = turf.area(polygon);
+    polygonG.bindPopup('面积：' + area + '平方米').openPopup();
+
 }
