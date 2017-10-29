@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>turf学习</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="leaflet/leaflet.css">
+</head>
+
+<body>
+    <div id="map"></div>
+    <div id="turfbutton">
+        <input type="button" value="along" onclick="alongTest()">
+        <input type="button" value="clear" onclick="clearTest()">
+        <div class="toolbar">
+            <input type="button" value="创建点" onclick="create(0)">
+            <input type="button" value="创建线" onclick="create(1)">
+            <input type="button" value="创建面" onclick="create(2)">
+            <input type="button" value="结束创建" onclick="finishCreate()">
+        </div>
+    </div>
+    <script src="leaflet/leaflet-src.js"></script>
+    <script src="turf.js"></script>
+    <script src="js/index.js"></script>
+</body>
+
+</html>
